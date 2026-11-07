@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTANC 63 - สารสนเทศนักเรียนพยาบาลทหารบก รุ่นที่ 63</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #064e3b; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #047857; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen pb-16">
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="loginScreen" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-emerald-500/30 rounded-3xl w-full max-w-sm p-6 space-y-5 text-center shadow-2xl">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-900/50">
+                <span class="text-3xl">🎖️</span>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-slate-100">RTANC 63 CADET HUB</h2>
+                <p class="text-xs text-emerald-400 mt-1">กรอกเลขประจำตัวเพื่อเข้าใช้งาน (63001 - 63080)</p>
+            </div>
+            <form onsubmit="handleLogin(event)" class="space-y-3">
+                <div>
+                    <input type="text" id="loginIdInput" maxlength="5" required placeholder="กรอกเลขประจำตัว (เช่น 63001)" autocomplete="off" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-center text-sm font-semibold text-emerald-400 tracking-wider focus:outline-none focus:border-emerald-500">
+                    <p id="loginErrorMsg" class="text-[11px] text-rose-400 font-medium mt-2 hidden"></p>
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs py-3 rounded-xl transition shadow-lg shadow-emerald-950">
+                    เข้าสู่ระบบ
+                </button>
+            </form>
+            <p class="text-[10px] text-slate-500">🔒 สารสนเทศนักเรียนพยาบาลทหารบก รุ่นที่ 63</p>
+        </div>
+    </div>
+
+    <!-- 2. LEFT OUT SCREEN (กรณี 63028 - หนอนไหม) -->
+    <div id="leftOutScreen" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-amber-500/30 rounded-3xl w-full max-w-sm p-6 space-y-5 text-center shadow-2xl">
+            <div class="w-20 h-20 rounded-full bg-amber-950/60 border border-amber-500/30 flex items-center justify-center mx-auto text-4xl shadow-lg">
+                <span>🍃</span>
+            </div>
+            <div class="space-y-2">
+                <span class="text-xs font-bold text-amber-400 bg-amber-950 px-3 py-1 rounded-full border border-amber-500/20">LEFT OUT CADET</span>
+                <h2 class="text-lg font-bold text-slate-100 mt-2">นรพ. ธรรมาพร ถินถาวร (หนอนไหม) ♀️</h2>
+                <p class="text-xs text-slate-300 leading-relaxed px-2 pt-2">
+                    เพื่อนได้กด Left Out / ลาออกจากรุ่น RTANC 63 ไปแล้ว<br>
+                    <span class="text-emerald-400 font-medium">"พวกเรายังคิดถึงและส่งกำลังใจให้หนอนไหมเสมอนะ 💚✨"</span>
+                </p>
+            </div>
+            <button onclick="backToLoginFromLeftOut()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs py-2.5 rounded-xl transition border border-slate-700">
+                กลับหน้าเข้าสู่ระบบ
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN APP STRUCTURE -->
+    <div id="appContent" class="hidden">
+        
+        <!-- Header Bar -->
+        <header class="bg-slate-900/90 border-b border-emerald-900/40 sticky top-0 z-40 backdrop-blur-md px-4 py-3">
+            <div class="max-w-md mx-auto flex justify-between items-center">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-900/30">
+                        <span class="text-base">🎖️</span>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xs text-slate-100 leading-tight flex items-center gap-1">
+                            <span id="userNameDisplay">RTANC 63</span>
+                        </h1>
+                        <p class="text-[10px] text-emerald-400 font-medium">เลขประจำตัว: <span id="userCadetId" class="font-bold"></span> | ห้อง <span id="userRoomDisplay"></span></p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="openModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-2.5 py-1.5 rounded-lg font-medium transition shadow-md flex items-center gap-1">
+                        <i class="fa-solid fa-plus text-[10px]"></i> เพิ่มงาน
+                    </button>
+                    <button onclick="handleLogout()" title="ออกจากระบบ" class="bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 p-1.5 rounded-lg text-xs transition border border-slate-700">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-md mx-auto p-4 space-y-4">
+
+            <!-- Home Leave Countdown Banner -->
+            <div class="bg-gradient-to-r from-slate-900 via-emerald-950/60 to-slate-900 p-4 rounded-2xl border border-emerald-500/30 shadow-lg relative overflow-hidden">
+                <div class="flex justify-between items-start relative z-10">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-300 bg-emerald-950/90 px-2 py-0.5 rounded-full border border-emerald-500/30">🏠 Home Leave Countdown</span>
+                        <h2 class="text-xs text-slate-300 mt-1.5">นับถอยหลังปล่อยพักกลับบ้าน (ศุกร์ 17:00 น.)</h2>
+                    </div>
+                    <i class="fa-solid fa-house-user text-emerald-400/20 text-3xl"></i>
+                </div>
+                <div class="grid grid-cols-4 gap-2 text-center mt-3 relative z-10">
+                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
+                        <div id="cd-days" class="text-base font-bold text-emerald-400">00</div>
+                        <div class="text-[9px] text-slate-400">วัน</div>
+                    </div>
+                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
+                        <div id="cd-hours" class="text-base font-bold text-slate-100">00</div>
+                        <div class="text-[9px] text-slate-400">ชั่วโมง</div>
+                    </div>
+                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
+                        <div id="cd-mins" class="text-base font-bold text-slate-100">00</div>
+                        <div class="text-[9px] text-slate-400">นาที</div>
+                    </div>
+                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
+                        <div id="cd-secs" class="text-base font-bold text-amber-400">00</div>
+                        <div class="text-[9px] text-slate-400">วินาที</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Dashboard -->
+            <div class="space-y-2">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="filterTasks()" placeholder="ค้นหาชื่อวิชา หรือหัวข้องาน..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div class="flex gap-1.5 overflow-x-auto pb-1 text-[11px] custom-scrollbar">
+                    <button onclick="setCategory('all')" class="cat-btn active bg-emerald-600 text-white px-3 py-1.5 rounded-xl whitespace-nowrap font-medium">ทั้งหมด</button>
+                    <button onclick="setCategory('การบ้าน')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">📝 การบ้าน</button>
+                    <button onclick="setCategory('สอบ')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">🚨 สอบ</button>
+                    <button onclick="setCategory('แล็บ')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">💉 แล็บ</button>
+                    <button onclick="setCategory('กิจกรรม')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">🎖️ กิจกรรมรุ่น</button>
+                </div>
+            </div>
+
+            <div id="taskList" class="space-y-2.5"></div>
+
+            <!-- ส่วนล่าง: แท็บข้อมูลในรุ่น -->
+            <div class="pt-4 border-t border-slate-800">
+                <h3 class="text-xs font-semibold text-slate-400 mb-2.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-layer-group text-emerald-400"></i> สารสนเทศ & เวรประจำวัน รุ่น 63
+                </h3>
+                <div class="grid grid-cols-4 gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-[9px]">
+                    <button onclick="switchTab('daily')" id="tab-daily" class="tab-btn bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 font-medium py-2 rounded-lg text-center">👔 ชุด/เวรประจำวัน</button>
+                    <button onclick="switchTab('senior1')" id="tab-senior1" class="tab-btn text-slate-400 py-2 rounded-lg text-center">👑 พี่ปกครอง</button>
+                    <button onclick="switchTab('senior2')" id="tab-senior2" class="tab-btn text-slate-400 py-2 rounded-lg text-center">⚡ พี่ทำการแทน</button>
+                    <button onclick="switchTab('mess')" id="tab-mess" class="tab-btn text-slate-400 py-2 rounded-lg text-center">🍱 โรงเลี้ยง</button>
+                </div>
+            </div>
+
+            <!-- Panel 1: ชุดประจำวัน & เวรประจำสัปดาห์ -->
+            <div id="panel-daily" class="tab-panel bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
+                
+                <!-- แถบเครื่องมือแก้ไขเฉพาะหัวหน้า/รองหัวหน้าตอน -->
+                <div id="adminDutyControl" class="hidden bg-amber-950/40 border border-amber-500/30 p-2.5 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center text-[10px] text-amber-400 font-bold">
+                        <span>👑 โหมดจัดการสำหรับหัวหน้า/รองหัวหน้าตอน</span>
+                        <button onclick="saveDutyConfig()" class="bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold px-2 py-0.5 rounded transition">บันทึกการแก้ไข</button>
+                    </div>
+                    <div class="space-y-1 text-[11px]">
+                        <input type="text" id="editDress" placeholder="แก้ไขเครื่องแบบประจำวัน..." class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-slate-200">
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <input type="text" id="editDutyLead" placeholder="เวรคุมแถว (เช่น 01-10)" class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-slate-200">
+                            <input type="text" id="editDutyDish" placeholder="เวรล้างจาน (เช่น 31-40)" class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-slate-200">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-500/20">
+                    <span class="text-[10px] font-bold text-emerald-400 block mb-0.5">👔 เครื่องแบบประจำวัน</span>
+                    <p id="displayDress" class="text-slate-200 font-medium">ชุดฝึกทหารบก (รองเท้าขัดเงา เน็ตผมดำเรียบร้อย)</p>
+                </div>
+                <div class="space-y-2">
+                    <span class="text-[11px] font-semibold text-slate-300 block">📌 ผลัดเวรรักษาการณ์ & เวรประจำวัน (ประจำสัปดาห์):</span>
+                    <div class="grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-amber-400 font-bold block">🎖️ เวรคุมแถว</span>
+                            <span id="displayDutyLead" class="text-slate-200 font-medium">รอหัวหน้าตอนอัปเดต</span>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-teal-400 font-bold block">🛡️ เวรรักษาการณ์</span>
+                            <span class="text-slate-200">ตามตารางคำสั่งเวร</span>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-blue-400 font-bold block">🧹 เวรห้องเรียน</span>
+                            <span class="text-emerald-400 font-bold">เลขที่ 61 - 70</span>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-[10px] font-bold text-rose-400 block">🍽️ เวรล้างจาน</span>
+                            <span id="displayDutyDish" class="text-slate-200 font-medium">รอหัวหน้าตอนอัปเดต</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2: พี่นักเรียนปกครอง -->
+            <div id="panel-senior1" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <span class="font-semibold text-amber-400">👑 ผลัดพี่นักเรียนปกครองประจำวัน</span>
+                    <span class="text-[10px] text-amber-300 bg-amber-950 px-2 py-0.5 rounded-full border border-amber-500/20">นรพ. ชั้นปีที่ 3</span>
+                </div>
+                <div class="space-y-2">
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-[10px] text-slate-400 block">หัวหน้านักเรียนปกครองประจำวัน:</span>
+                        <div class="font-semibold text-slate-100 text-sm mt-0.5">นรพ. (ผลัดที่ 2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3: พี่ทำการแทนนักเรียนปกครอง -->
+            <div id="panel-senior2" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <span class="font-semibold text-emerald-400">⚡ พี่ทำการแทนนักเรียนปกครอง</span>
+                    <span class="text-[10px] text-emerald-300 bg-emerald-950 px-2 py-0.5 rounded-full border border-emerald-500/20">นรพ. ชั้นปีที่ 2</span>
+                </div>
+                <div class="space-y-2">
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-[10px] text-slate-400 block">พี่ทำการแทนประจำวัน (ชุดเตรียมฝึก):</span>
+                        <div class="font-semibold text-slate-100 text-sm mt-0.5">นรพ. (ผลัดที่ 1)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 4: เมนูโรงประกอบเลี้ยง -->
+            <div id="panel-mess" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-slate-200">เมนูอาหารโรงประกอบเลี้ยงประจำสัปดาห์</span>
+                    <span class="text-[10px] text-amber-400 bg-amber-950 px-2 py-0.5 rounded-full border border-amber-500/20">Mess Hall</span>
+                </div>
+                <div class="space-y-2">
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-[10px] font-bold text-amber-400 block mb-0.5">🌅 มื้อเช้า (06:30 น.)</span>
+                        <p class="text-slate-300">ต้มเลือดหมูใบตำลึง + ข้าวสวย + ไข่ต้ม</p>
+                    </div>
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-[10px] font-bold text-emerald-400 block mb-0.5">☀️ มื้อกลางวัน (12:00 น.)</span>
+                        <p class="text-slate-300">ผัดกะเพราไก่ไข่ดาว + แกงจืดเต้าหู้หมูสับ</p>
+                    </div>
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-[10px] font-bold text-teal-400 block mb-0.5">🌙 มื้อเย็น (18:00 น.)</span>
+                        <p class="text-slate-300">มัสมั่นไก่ + ผัดผักรวมมิตร</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL ADD TASK -->
+    <div id="addModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-5 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-bold text-sm text-slate-100">➕ เพิ่มงาน / เดดไลน์ใหม่ (ส่วนกลาง)</h3>
+                <button onclick="closeModal()" class="text-slate-500 text-base"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="taskForm" onsubmit="saveTask(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">ชื่อวิชา</label>
+                    <input type="text" id="inputSubject" required placeholder="เช่น Anatomy, การพยาบาลพื้นฐาน" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">หัวข้องาน / เรื่องที่ต้องทำ</label>
+                    <input type="text" id="inputTitle" required placeholder="เช่น สอบเก็บคะแนน, ส่งรายงานแล็บ" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-400 mb-1">ประเภทงาน</label>
+                        <select id="inputType" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
+                            <option value="การบ้าน">📝 การบ้าน</option>
+                            <option value="สอบ">🚨 สอบ</option>
+                            <option value="แล็บ">💉 แล็บ</option>
+                            <option value="กิจกรรม">🎖️ กิจกรรมรุ่น</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">กำหนดส่ง (วัน-เวลา)</label>
+                        <input type="datetime-local" id="inputDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">รายละเอียดเพิ่มเติม</label>
+                    <textarea id="inputDetail" rows="2" placeholder="รายละเอียดหรือคำสั่งอาจารย์..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500"></textarea>
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeModal()" class="w-1/2 bg-slate-800 text-slate-300 py-2 rounded-xl font-medium">ยกเลิก</button>
+                    <button type="submit" class="w-1/2 bg-emerald-600 text-white py-2 rounded-xl font-medium">บันทึกงาน</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // กำหนดเลขประจำตัวสำหรับสิทธิ์ระดับหัวหน้า/รองหัวหน้าตอน
+        const LEAD_CADETS = ["63069", "63004", "63026"];
+
+        const CADET_DIRECTORY = {
+            "63001": { name: "กนกรัตน์ บุญแย้ม", nick: "คัพเค้ก", room: "301", gender: "♀️" },
+            "63002": { name: "กวิน ต่วนเทศ", nick: "กวิน", room: "705", gender: "♂️" },
+            "63003": { name: "กัญญาภัค พุทธารักษ์สกุล", nick: "เฟิร์น", room: "301", gender: "♀️" },
+            "63004": { name: "ขรินทิพย์ กนกมงคล", nick: "คาริน", room: "302", gender: "♀️" },
+            "63005": { name: "ขวัญจิรา ดวงคำ", nick: "น้ำปั่น", room: "302", gender: "♀️" },
+            "63006": { name: "จันทกานต์ แวดไชยสงค์", nick: "จ๊ะ", room: "303", gender: "♀️" },
+            "63007": { name: "จิรัชญา ไวทยวิสุทธิพงศ์", nick: "โมจิ", room: "303", gender: "♀️" },
+            "63008": { name: "ชัญญา งามศิริเลิศสกุล", nick: "แมงปอ", room: "304", gender: "♀️" },
+            "63009": { name: "ชัญญา เกษมสรวล", nick: "ต้นป่าน", room: "304", gender: "♀️" },
+            "63010": { name: "ชาลิสา จิตกำธรสุโข", nick: "แพท", room: "305", gender: "♀️" },
+            "63011": { name: "ญาณิสา ทับจีบ", nick: "เฟรนด์", room: "311", gender: "♀️" },
+            "63012": { name: "ญาดา พิศาลรัตนคุณ", nick: "ใบบัว", room: "306", gender: "♀️" },
+            "63013": { name: "ฐิติชญา รอดกสิกรรม", nick: "ปาล์ม", room: "306", gender: "♀️" },
+            "63014": { name: "ณภัทร ชอบพานิช", nick: "ขนุน", room: "307", gender: "♀️" },
+            "63015": { name: "ณริศราพร สีส่อง", nick: "ริต้า", room: "307", gender: "♀️" },
+            "63016": { name: "ณัฏฐชัย เหรียญรุ่งเรือง", nick: "นัทโตะ", room: "703", gender: "♂️" },
+            "63017": { name: "ณัฏฐนิช สกุลกิตติยุต", nick: "เปีย(โน)", room: "308", gender: "♀️" },
+            "63018": { name: "ณัฐกมล เดไปวา", nick: "ข้าวผัด", room: "308", gender: "♀️" },
+            "63019": { name: "ณัฐฌา เกียรติกูลานุสรณ์", nick: "เบส", room: "309", gender: "♀️" },
+            "63020": { name: "ณัฐณภาส์ แย้มอรุณพัฒนา", nick: "หลิว", room: "309", gender: "♀️" },
+            "63021": { name: "ณัฐณิชา สกุลไพศาล", nick: "เตยนัท", room: "310", gender: "♀️" },
+            "63022": { name: "ณัฐวรรณ เกษมสุข", nick: "ไอซ์ณัฐ", room: "310", gender: "♀️" },
+            "63023": { name: "ณิชาพร พิจารย์", nick: "ซัมเมอร์", room: "311", gender: "♀️" },
+            "63024": { name: "ดนัยณัฐ ดำงาม", nick: "เตวิด", room: "807", gender: "♂️" },
+            "63025": { name: "ทิพย์มณฑา ศีลประเสริฐ", nick: "ซิ่วซิ่ว", room: "311", gender: "♀️" },
+            "63026": { name: "ธนกร กาญจนะโกมล", nick: "กอล์ฟ", room: "704", gender: "♂️" },
+            "63027": { name: "ธนวรรณ คงชาติ", nick: "เต้", room: "401", gender: "♀️" },
+            "63028": { name: "ธรรมาพร ถินถาวร", nick: "หนอนไหม", room: "401", gender: "♀️", leftOut: true },
+            "63029": { name: "ธัญวรัตน์ แสนสมบัติ", nick: "บีเฟิร์ส", room: "402", gender: "♀️" },
+            "63030": { name: "ธิดาศิริ ศรีโสดา", nick: "มิว", room: "402", gender: "♀️" },
+            "63031": { name: "ธีรเมธ สิทธิวงศ์", nick: "ธี", room: "704", gender: "♂️" },
+            "63032": { name: "นภัสรพี คล้ายมุข", nick: "ปิ่น", room: "403", gender: "♀️" },
+            "63033": { name: "นริศรา ชำนาญ", nick: "มาตา", room: "403", gender: "♀️" },
+            "63034": { name: "นัตฐวิพร ฮาสูงเนิน", nick: "พีค", room: "404", gender: "♀️" },
+            "63035": { name: "นันท์นภัส พรายแก้ว", nick: "นัตตี้", room: "404", gender: "♀️" },
+            "63036": { name: "นิชาภา ชุณห์วิสิทธิกิจ", nick: "ฟิว", room: "405", gender: "♀️" },
+            "63037": { name: "เบญญาภา ฆังคะสะเร", nick: "โมนา", room: "405", gender: "♀️" },
+            "63038": { name: "ปณิดา ใจห้าว", nick: "ตอง", room: "406", gender: "♀️" },
+            "63039": { name: "ปณิตา ปกปัด", nick: "บ๊วย", room: "406", gender: "♀️" },
+            "63040": { name: "ปรียาพิชญ์ ร่มโพธิ์", nick: "ข้าวต้ม", room: "407", gender: "♀️" },
+            "63041": { name: "ปวีณวัสสา ศศิมณฑลกุล", nick: "ครีม", room: "407", gender: "♀️" },
+            "63042": { name: "ปสุตา วัฒนสกุลเอก", nick: "อิงมี่", room: "408", gender: "♀️" },
+            "63043": { name: "ปิญชาน์ ชาเรืองเดช", nick: "ไอคิว", room: "408", gender: "♀️" },
+            "63044": { name: "ปุญญาภา ไชยสงคราม", nick: "ญา", room: "409", gender: "♀️" },
+            "63045": { name: "พชรพรรณ ศรีสวัสดิ์", nick: "อิมแพค", room: "409", gender: "♀️" },
+            "63046": { name: "พชรวรรณ เอี่ยมเจริญ", nick: "ปีใหม่", room: "410", gender: "♀️" },
+            "63047": { name: "พรธนา พลดวล", nick: "ออย", room: "410", gender: "♀️" },
+            "63048": { name: "พิชชานันท์ ประแดงปุย", nick: "ไออุ่น", room: "411", gender: "♀️" },
+            "63049": { name: "พิชญาภา หอมสะอาด", nick: "ไอซ์สเก็ต", room: "411", gender: "♀️" },
+            "63050": { name: "พิณพลอย นันทวงษ์", nick: "พิณพลอย", room: "501", gender: "♀️" },
+            "63051": { name: "พิมพ์มณี สมัครคดี", nick: "ฟ้าใส", room: "501", gender: "♀️" },
+            "63052": { name: "พุทธรักษา นันทการ", nick: "รับขวัญ", room: "502", gender: "♀️" },
+            "63053": { name: "เพชรชมพู สาระพุฒ", nick: "เพชรชี่", room: "502", gender: "♀️" },
+            "63054": { name: "ไพลิน พันธุวงค์ราช", nick: "ไพลิน", room: "503", gender: "♀️" },
+            "63055": { name: "ภัควลัญชญ์ สืบวงศ์", nick: "มิวอิส", room: "503", gender: "♀️" },
+            "63056": { name: "ภีมพล ภูติเกียรติขจร", nick: "โฟร์ท", room: "705", gender: "♂️" },
+            "63057": { name: "มติชน ชาญประโคน", nick: "มติ", room: "702", gender: "♂️" },
+            "63058": { name: "มลธิยา แสนสำราญ", nick: "หลิน", room: "504", gender: "♀️" },
+            "63059": { name: "รัตน์ กิตติวโรดม", nick: "รัตน์", room: "504", gender: "♀️" },
+            "63060": { name: "ลักขิกา ทองพาศน์", nick: "ป่าน", room: "505", gender: "♀️" },
+            "63061": { name: "วรินยุพา สอดเสน", nick: "แพนเค้ก", room: "505", gender: "♀️" },
+            "63062": { name: "วัชรพงศ์ มั่นศรีเจริญ", nick: "เน็ค", room: "703", gender: "♂️" },
+            "63063": { name: "วิรดา จินต์ประยูร", nick: "โคลอี้", room: "506", gender: "♀️" },
+            "63064": { name: "ศรีรัตนินทร์ นาคเสวีวงศ์", nick: "ออมมี่", room: "506", gender: "♀️" },
+            "63065": { name: "ศิขชนม์ คําขาว", nick: "ปลื้ม", room: "702", gender: "♂️" },
+            "63066": { name: "ศิรประภา หิตะพงษ์", nick: "ศิ", room: "507", gender: "♀️" },
+            "63067": { name: "ศิริการย์ สกุลวรสวัสดิ์", nick: "พิม", room: "507", gender: "♀️" },
+            "63068": { name: "ศุภฤกษ์ สุทธวงศ์", nick: "มาร์ค", room: "807", gender: "♂️" },
+            "63069": { name: "สิริปรียา เกากลางดอน", nick: "อะตอม", room: "508", gender: "♀️" },
+            "63070": { name: "สุวภัทร ทองพันธ์", nick: "เนเน่", room: "508", gender: "♀️" },
+            "63071": { name: "หนึ่งนิรันดร์ คำวงค์มูล", nick: "มะปราง", room: "509", gender: "♀️" },
+            "63072": { name: "เหมือนดาว พิทักษ์ชัยธรรม", nick: "ดาว", room: "509", gender: "♀️" },
+            "63073": { name: "อชิรญา รันจัตุรัส", nick: "รริน", room: "510", gender: "♀️" },
+            "63074": { name: "อทิตยา บุญไชย", nick: "อาทิตย์", room: "510", gender: "♀️" },
+            "63075": { name: "อธิชา หวั่นท๊อก", nick: "มะเหมี่ยว", room: "511", gender: "♀️" },
+            "63076": { name: "อภิชญา สิงหอุบล", nick: "ลูกพลอย", room: "511", gender: "♀️" },
+            "63077": { name: "อรุนรัตน์ สิงห์อิศรางค์", nick: "หนูดี", room: "601", gender: "♀️" },
+            "63078": { name: "อัยยาวดี ศรีธัญญะโชติ", nick: "หยิน", room: "601", gender: "♀️" },
+            "63079": { name: "อิศวรา วรินอินทร์", nick: "บัตเตอร์", room: "602", gender: "♀️" },
+            "63080": { name: "ไอลดา พันธาสุ", nick: "มี่", room: "602", gender: "♀️" }
+        };
+
+        let currentCadetId = sessionStorage.getItem('rtanc_session_id') || '';
+        let tasks = JSON.parse(localStorage.getItem('rtanc_shared_tasks')) || [
+            { id: 1, subject: 'Anatomy & Physiology', title: 'สอบเก็บคะแนน ระบบกระดูกและกล้ามเนื้อ', type: 'สอบ', dueDate: '2026-11-10T09:00', detail: 'สอบห้องเรียนรวม 3 เตรียมดินสอ 2B' },
+            { id: 2, subject: 'การพยาบาลพื้นฐาน', title: 'ส่งรายงานสรุปแล็บ Vital Signs', type: 'แล็บ', dueDate: '2026-11-12T23:59', detail: 'ส่งเป็นไฟล์ PDF ทาง Google Classroom' },
+            { id: 3, subject: 'วิชาทหาร', title: 'ตรวจเครื่องแบบและระเบียบแถวประจำสัปดาห์', type: 'กิจกรรม', dueDate: '2026-11-13T07:00', detail: 'แต่งกายชุดฝึก รองเท้าขัดเงา เน็ตผมเป๊ะ' }
+        ];
+
+        let dutyConfig = JSON.parse(localStorage.getItem('rtanc_duty_config')) || {
+            dress: 'ชุดฝึกทหารบก (รองเท้าขัดเงา เน็ตผมดำเรียบร้อย)',
+            lead: 'รอหัวหน้าตอนอัปเดต',
+            dish: 'รอหัวหน้าตอนอัปเดต'
+        };
+
+        let currentCat = 'all';
+
+        function checkAuth() {
+            if(currentCadetId && CADET_DIRECTORY[currentCadetId]) {
+                const user = CADET_DIRECTORY[currentCadetId];
+                
+                if(user.leftOut) {
+                    document.getElementById('loginScreen').classList.add('hidden');
+                    document.getElementById('appContent').classList.add('hidden');
+                    document.getElementById('leftOutScreen').classList.remove('hidden');
+                    return;
+                }
+
+                document.getElementById('leftOutScreen').classList.add('hidden');
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('appContent').classList.remove('hidden');
+                
+                const prefix = user.gender === '♂️' ? 'นรพ.(ช)' : 'นรพ.';
+
+                document.getElementById('userCadetId').innerText = currentCadetId;
+                document.getElementById('userNameDisplay').innerText = `${prefix} ${user.name} (${user.nick}) ${user.gender}`;
+                document.getElementById('userRoomDisplay').innerText = user.room;
+                
+                // ตรวจสอบว่าผู้ใช้เป็นหัวหน้า/รองหัวหน้าตอนหรือไม่
+                if(LEAD_CADETS.includes(currentCadetId)) {
+                    document.getElementById('adminDutyControl').classList.remove('hidden');
+                } else {
+                    document.getElementById('adminDutyControl').classList.add('hidden');
+                }
+
+                renderDutyDisplays();
+                renderTasks();
+                startCountdown();
+            } else {
+                document.getElementById('leftOutScreen').classList.add('hidden');
+                document.getElementById('loginScreen').classList.remove('hidden');
+                document.getElementById('appContent').classList.add('hidden');
+                document.getElementById('loginIdInput').value = '';
+                showError('');
+            }
+        }
+
+        function renderDutyDisplays() {
+            document.getElementById('displayDress').innerText = dutyConfig.dress;
+            document.getElementById('displayDutyLead').innerText = dutyConfig.lead;
+            document.getElementById('displayDutyDish').innerText = dutyConfig.dish;
+
+            document.getElementById('editDress').value = dutyConfig.dress;
+            document.getElementById('editDutyLead').value = dutyConfig.lead;
+            document.getElementById('editDutyDish').value = dutyConfig.dish;
+        }
+
+        function saveDutyConfig() {
+            const dress = document.getElementById('editDress').value.trim();
+            const lead = document.getElementById('editDutyLead').value.trim();
+            const dish = document.getElementById('editDutyDish').value.trim();
+
+            if(dress) dutyConfig.dress = dress;
+            if(lead) dutyConfig.lead = lead;
+            if(dish) dutyConfig.dish = dish;
+
+            localStorage.setItem('rtanc_duty_config', JSON.stringify(dutyConfig));
+            renderDutyDisplays();
+            alert('บันทึกการแก้ไขข้อมูลเวรและเครื่องแบบเรียบร้อยแล้วครับ! 👑');
+        }
+
+        function backToLoginFromLeftOut() {
+            sessionStorage.removeItem('rtanc_session_id');
+            currentCadetId = '';
+            checkAuth();
+        }
+
+        function showError(msg) {
+            const errEl = document.getElementById('loginErrorMsg');
+            if(msg) {
+                errEl.innerText = msg;
+                errEl.classList.remove('hidden');
+            } else {
+                errEl.innerText = '';
+                errEl.classList.add('hidden');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            showError('');
+            let inputId = document.getElementById('loginIdInput').value.trim();
+            
+            if(inputId === '6341') inputId = '63041';
+
+            if(!CADET_DIRECTORY[inputId]) {
+                showError('❌ ไม่พบเลขประจำตัวนี้ในระบบ RTANC 63 (กรุณากรอก 63001 - 63080)');
+                return;
+            }
+
+            currentCadetId = inputId;
+            sessionStorage.setItem('rtanc_session_id', inputId);
+            checkAuth();
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem('rtanc_session_id');
+            currentCadetId = '';
+            checkAuth();
+        }
+
+        function isTaskDone(taskId) {
+            const userDoneList = JSON.parse(localStorage.getItem(`rtanc_done_${currentCadetId}`)) || [];
+            return userDoneList.includes(taskId);
+        }
+
+        function toggleDone(taskId) {
+            let userDoneList = JSON.parse(localStorage.getItem(`rtanc_done_${currentCadetId}`)) || [];
+            if(userDoneList.includes(taskId)) {
+                userDoneList = userDoneList.filter(id => id !== taskId);
+            } else {
+                userDoneList.push(taskId);
+            }
+            localStorage.setItem(`rtanc_done_${currentCadetId}`, JSON.stringify(userDoneList));
+            renderTasks();
+        }
+
+        function renderTasks() {
+            const container = document.getElementById('taskList');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtered = tasks.filter(t => {
+                const matchCat = currentCat === 'all' || t.type === currentCat;
+                const matchSearch = t.subject.toLowerCase().includes(search) || t.title.toLowerCase().includes(search);
+                return matchCat && matchSearch;
+            });
+
+            if(filtered.length === 0) {
+                container.innerHTML = `<div class="text-center py-8 text-slate-500 text-xs">ไม่พบรายการงาน ชิลล์ได้! 🎉</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(t => {
+                const done = isTaskDone(t.id);
+                return `
+                <div class="bg-slate-900 border ${done ? 'border-slate-800 opacity-60' : 'border-slate-800'} rounded-2xl p-3.5 space-y-2 transition">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${t.type === 'สอบ' ? 'bg-rose-950 text-rose-400 border border-rose-500/20' : t.type === 'แล็บ' ? 'bg-teal-950 text-teal-400 border border-teal-500/20' : 'bg-emerald-950 text-emerald-400 border border-emerald-500/20'}">
+                            ${t.type}
+                        </span>
+                        <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-slate-400">
+                            <input type="checkbox" onchange="toggleDone(${t.id})" ${done ? 'checked' : ''} class="accent-emerald-500 rounded">
+                            <span>${done ? 'ส่งแล้ว' : 'ยังไม่ส่ง'}</span>
+                        </label>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-emerald-400 font-medium block">${t.subject}</span>
+                        <h3 class="font-semibold text-xs text-slate-100 ${done ? 'line-through' : ''}">${t.title}</h3>
+                        ${t.detail ? `<p class="text-[11px] text-slate-400 mt-1">${t.detail}</p>` : ''}
+                    </div>
+                    <div class="pt-2 border-t border-slate-800/80 flex justify-between items-center text-[10px] text-slate-500">
+                        <span>📅 กำหนดส่ง: ${new Date(t.dueDate).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' })} น.</span>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function startCountdown() {
+            function update() {
+                const now = new Date();
+                let target = new Date();
+                target.setDate(now.getDate() + ((5 + 7 - now.getDay()) % 7));
+                target.setHours(17, 0, 0, 0);
+
+                if (now > target) {
+                    target.setDate(target.getDate() + 7);
+                }
+
+                const diff = target - now;
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const m = Math.floor((diff / 1000 / 60) % 60);
+                const s = Math.floor((diff / 1000) % 60);
+
+                document.getElementById('cd-days').innerText = String(d).padStart(2, '0');
+                document.getElementById('cd-hours').innerText = String(h).padStart(2, '0');
+                document.getElementById('cd-mins').innerText = String(m).padStart(2, '0');
+                document.getElementById('cd-secs').innerText = String(s).padStart(2, '0');
+            }
+            update();
+            setInterval(update, 1000);
+        }
+
+        function setCategory(cat) {
+            currentCat = cat;
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.classList.remove('bg-emerald-600', 'text-white');
+                b.classList.add('bg-slate-900', 'text-slate-400');
+            });
+            event.target.classList.remove('bg-slate-900', 'text-slate-400');
+            event.target.classList.add('bg-emerald-600', 'text-white');
+            renderTasks();
+        }
+
+        function filterTasks() { renderTasks(); }
+        function openModal() { document.getElementById('addModal').classList.remove('hidden'); }
+        function closeModal() { document.getElementById('addModal').classList.add('hidden'); }
+
+        function saveTask(e) {
+            e.preventDefault();
+            const newTask = {
+                id: Date.now(),
+                subject: document.getElementById('inputSubject').value,
+                title: document.getElementById('inputTitle').value,
+                type: document.getElementById('inputType').value,
+                dueDate: document.getElementById('inputDate').value,
+                detail: document.getElementById('inputDetail').value
+            };
+            tasks.unshift(newTask);
+            localStorage.setItem('rtanc_shared_tasks', JSON.stringify(tasks));
+            renderTasks();
+            closeModal();
+            document.getElementById('taskForm').reset();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('bg-emerald-950/80', 'text-emerald-400', 'border', 'border-emerald-500/30', 'font-medium');
+                b.classList.add('text-slate-400');
+            });
+            document.getElementById(`panel-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.add('bg-emerald-950/80', 'text-emerald-400', 'border', 'border-emerald-500/30', 'font-medium');
+        }
+
+        checkAuth();
+    </script>
+</body>
+</html>
