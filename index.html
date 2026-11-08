@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Kanit', sans-serif; }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        body { font-family: 'Kanit', sans-serif; font-size: 1.15rem; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #064e3b; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #047857; border-radius: 4px; }
     </style>
@@ -23,23 +23,23 @@
                 <span class="text-3xl">🎖️</span>
             </div>
             <div>
-                <h2 class="text-xl font-bold text-slate-100">RTANC 63 CADET HUB</h2>
-                <p class="text-xs text-emerald-400 mt-1">กรอกเลขประจำตัวเพื่อเข้าใช้งาน (63001 - 63080)</p>
+                <h2 class="text-2xl font-bold text-slate-100">RTANC 63 CADET HUB</h2>
+                <p class="text-sm text-emerald-400 mt-1">กรอกเลขประจำตัวเพื่อเข้าใช้งาน (63001 - 63080)</p>
             </div>
-            <form onsubmit="handleLogin(event)" class="space-y-3">
+            <form onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
-                    <input type="text" id="loginIdInput" maxlength="5" required placeholder="กรอกเลขประจำตัว (เช่น 63001)" autocomplete="off" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-center text-sm font-semibold text-emerald-400 tracking-wider focus:outline-none focus:border-emerald-500">
-                    <p id="loginErrorMsg" class="text-[11px] text-rose-400 font-medium mt-2 hidden"></p>
+                    <input type="text" id="loginIdInput" maxlength="5" required placeholder="กรอกเลขประจำตัว (เช่น 63001)" autocomplete="off" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 text-center text-base font-semibold text-emerald-400 tracking-wider focus:outline-none focus:border-emerald-500">
+                    <p id="loginErrorMsg" class="text-xs text-rose-400 font-medium mt-2 hidden"></p>
                 </div>
-                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs py-3 rounded-xl transition shadow-lg shadow-emerald-950">
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm py-3.5 rounded-xl transition shadow-lg shadow-emerald-950">
                     เข้าสู่ระบบ
                 </button>
             </form>
-            <p class="text-[10px] text-slate-500">🔒 สารสนเทศนักเรียนพยาบาลทหารบก รุ่นที่ 63</p>
+            <p class="text-xs text-slate-500">🔒 สารสนเทศนักเรียนพยาบาลทหารบก รุ่นที่ 63</p>
         </div>
     </div>
 
-    <!-- 2. LEFT OUT SCREEN (กรณี 63028 - หนอนไหม) -->
+    <!-- 2. LEFT OUT SCREEN -->
     <div id="leftOutScreen" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-slate-900 border border-amber-500/30 rounded-3xl w-full max-w-sm p-6 space-y-5 text-center shadow-2xl">
             <div class="w-20 h-20 rounded-full bg-amber-950/60 border border-amber-500/30 flex items-center justify-center mx-auto text-4xl shadow-lg">
@@ -47,13 +47,13 @@
             </div>
             <div class="space-y-2">
                 <span class="text-xs font-bold text-amber-400 bg-amber-950 px-3 py-1 rounded-full border border-amber-500/20">LEFT OUT CADET</span>
-                <h2 class="text-lg font-bold text-slate-100 mt-2">นรพ. ธรรมาพร ถินถาวร (หนอนไหม) ♀️</h2>
-                <p class="text-xs text-slate-300 leading-relaxed px-2 pt-2">
+                <h2 class="text-xl font-bold text-slate-100 mt-2">นรพ. ธรรมาพร ถินถาวร (หนอนไหม) ♀️</h2>
+                <p class="text-sm text-slate-300 leading-relaxed px-2 pt-2">
                     เพื่อนได้กด Left Out / ลาออกจากรุ่น RTANC 63 ไปแล้ว<br>
                     <span class="text-emerald-400 font-medium">"พวกเรายังคิดถึงและส่งกำลังใจให้หนอนไหมเสมอนะ 💚✨"</span>
                 </p>
             </div>
-            <button onclick="backToLoginFromLeftOut()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs py-2.5 rounded-xl transition border border-slate-700">
+            <button onclick="backToLoginFromLeftOut()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm py-3 rounded-xl transition border border-slate-700">
                 กลับหน้าเข้าสู่ระบบ
             </button>
         </div>
@@ -65,25 +65,30 @@
         <!-- Header Bar -->
         <header class="bg-slate-900/90 border-b border-emerald-900/40 sticky top-0 z-40 backdrop-blur-md px-4 py-3">
             <div class="max-w-md mx-auto flex justify-between items-center">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-900/30">
-                        <span class="text-base">🎖️</span>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-900/30">
+                        <span class="text-lg">🎖️</span>
                     </div>
                     <div>
-                        <h1 class="font-bold text-xs text-slate-100 leading-tight flex items-center gap-1">
+                        <h1 class="font-bold text-sm text-slate-100 leading-tight flex items-center gap-1">
                             <span id="userNameDisplay">RTANC 63</span>
                         </h1>
-                        <p class="text-[10px] text-emerald-400 font-medium">เลขประจำตัว: <span id="userCadetId" class="font-bold"></span> | ห้อง <span id="userRoomDisplay"></span></p>
+                        <p class="text-xs text-emerald-400 font-medium mt-0.5">เลขประจำตัว: <span id="userCadetId" class="font-bold"></span> | ห้อง <span id="userRoomDisplay"></span></p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button onclick="openModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-2.5 py-1.5 rounded-lg font-medium transition shadow-md flex items-center gap-1">
-                        <i class="fa-solid fa-plus text-[10px]"></i> เพิ่มงาน
+                    <button onclick="openModal()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-2 rounded-xl font-medium transition shadow-md flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus text-xs"></i> เพิ่มงาน
                     </button>
-                    <button onclick="handleLogout()" title="ออกจากระบบ" class="bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 p-1.5 rounded-lg text-xs transition border border-slate-700">
+                    <button onclick="handleLogout()" title="ออกจากระบบ" class="bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 p-2 rounded-xl text-xs transition border border-slate-700">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
+            </div>
+            <!-- Realtime Clock Bar -->
+            <div class="max-w-md mx-auto mt-2 pt-2 border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-400">
+                <span id="realtimeDate"><i class="fa-regular fa-calendar-days text-emerald-400 mr-1"></i>กำลังโหลดวัน...</span>
+                <span id="realtimeClock" class="font-mono bg-slate-950 px-2.5 py-0.5 rounded border border-slate-800 text-emerald-400 font-bold">00:00:00 น.</span>
             </div>
         </header>
 
@@ -93,153 +98,188 @@
             <div class="bg-gradient-to-r from-slate-900 via-emerald-950/60 to-slate-900 p-4 rounded-2xl border border-emerald-500/30 shadow-lg relative overflow-hidden">
                 <div class="flex justify-between items-start relative z-10">
                     <div>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-300 bg-emerald-950/90 px-2 py-0.5 rounded-full border border-emerald-500/30">🏠 Home Leave Countdown</span>
-                        <h2 class="text-xs text-slate-300 mt-1.5">นับถอยหลังปล่อยพักกลับบ้าน (ศุกร์ 17:00 น.)</h2>
+                        <span class="text-xs uppercase font-bold tracking-wider text-emerald-300 bg-emerald-950/90 px-2.5 py-0.5 rounded-full border border-emerald-500/30">🏠 Home Leave Countdown</span>
+                        <h2 class="text-sm text-slate-300 mt-2 font-medium">นับถอยหลังปล่อยพักกลับบ้าน (ศุกร์ 17:00 น.)</h2>
                     </div>
-                    <i class="fa-solid fa-house-user text-emerald-400/20 text-3xl"></i>
+                    <i class="fa-solid fa-house-user text-emerald-400/20 text-4xl"></i>
                 </div>
                 <div class="grid grid-cols-4 gap-2 text-center mt-3 relative z-10">
-                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
-                        <div id="cd-days" class="text-base font-bold text-emerald-400">00</div>
-                        <div class="text-[9px] text-slate-400">วัน</div>
+                    <div class="bg-slate-950/70 p-2.5 rounded-xl border border-emerald-900/50">
+                        <div id="cd-days" class="text-xl font-bold text-emerald-400">00</div>
+                        <div class="text-xs text-slate-400 mt-0.5">วัน</div>
                     </div>
-                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
-                        <div id="cd-hours" class="text-base font-bold text-slate-100">00</div>
-                        <div class="text-[9px] text-slate-400">ชั่วโมง</div>
+                    <div class="bg-slate-950/70 p-2.5 rounded-xl border border-emerald-900/50">
+                        <div id="cd-hours" class="text-xl font-bold text-slate-100">00</div>
+                        <div class="text-xs text-slate-400 mt-0.5">ชั่วโมง</div>
                     </div>
-                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
-                        <div id="cd-mins" class="text-base font-bold text-slate-100">00</div>
-                        <div class="text-[9px] text-slate-400">นาที</div>
+                    <div class="bg-slate-950/70 p-2.5 rounded-xl border border-emerald-900/50">
+                        <div id="cd-mins" class="text-xl font-bold text-slate-100">00</div>
+                        <div class="text-xs text-slate-400 mt-0.5">นาที</div>
                     </div>
-                    <div class="bg-slate-950/70 p-2 rounded-xl border border-emerald-900/50">
-                        <div id="cd-secs" class="text-base font-bold text-amber-400">00</div>
-                        <div class="text-[9px] text-slate-400">วินาที</div>
+                    <div class="bg-slate-950/70 p-2.5 rounded-xl border border-emerald-900/50">
+                        <div id="cd-secs" class="text-xl font-bold text-amber-400">00</div>
+                        <div class="text-xs text-slate-400 mt-0.5">วินาที</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Task Dashboard -->
-            <div class="space-y-2">
+            <!-- Task Dashboard Section -->
+            <div class="space-y-3">
                 <div class="relative">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-500 text-xs"></i>
-                    <input type="text" id="searchInput" oninput="filterTasks()" placeholder="ค้นหาชื่อวิชา หรือหัวข้องาน..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
+                    <input type="text" id="searchInput" oninput="filterTasks()" placeholder="ค้นหาชื่อวิชา หรือหัวข้องาน..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500">
                 </div>
-                <div class="flex gap-1.5 overflow-x-auto pb-1 text-[11px] custom-scrollbar">
-                    <button onclick="setCategory('all')" class="cat-btn active bg-emerald-600 text-white px-3 py-1.5 rounded-xl whitespace-nowrap font-medium">ทั้งหมด</button>
-                    <button onclick="setCategory('การบ้าน')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">📝 การบ้าน</button>
-                    <button onclick="setCategory('สอบ')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">🚨 สอบ</button>
-                    <button onclick="setCategory('แล็บ')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">💉 แล็บ</button>
-                    <button onclick="setCategory('กิจกรรม')" class="cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3 py-1.5 rounded-xl whitespace-nowrap">🎖️ กิจกรรมรุ่น</button>
+
+                <!-- แท็บหลัก 2 แท็บ -->
+                <div class="grid grid-cols-2 gap-2 bg-slate-900 p-1.5 rounded-2xl border border-slate-800 text-sm font-semibold">
+                    <button onclick="switchMainTaskTab('pending')" id="mainTab-pending" class="py-2.5 rounded-xl transition flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-md">
+                        <i class="fa-solid fa-list-check"></i> งานทั้งหมด <span id="pendingCountBadge" class="bg-emerald-950/80 text-emerald-300 text-xs px-2 py-0.5 rounded-full border border-emerald-500/30">0</span>
+                    </button>
+                    <button onclick="switchMainTaskTab('completed')" id="mainTab-completed" class="py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
+                        <i class="fa-solid fa-circle-check"></i> ทำเสร็จแล้ว <span id="completedCountBadge" class="bg-slate-950 text-slate-500 text-xs px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                </div>
+
+                <!-- ตัวกรองหมวดหมู่ย่อย -->
+                <div id="subCategoryContainer" class="flex gap-2 overflow-x-auto pb-1 text-xs custom-scrollbar">
+                    <button onclick="setSubCategory('all')" id="subCat-all" class="sub-cat-btn bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-3.5 py-1.5 rounded-xl whitespace-nowrap font-medium">ทั้งหมด</button>
+                    <button onclick="setSubCategory('การบ้าน')" id="subCat-การบ้าน" class="sub-cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3.5 py-1.5 rounded-xl whitespace-nowrap">📝 การบ้าน</button>
+                    <button onclick="setSubCategory('สอบ')" id="subCat-สอบ" class="sub-cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3.5 py-1.5 rounded-xl whitespace-nowrap">🚨 สอบ</button>
+                    <button onclick="setSubCategory('แล็บ')" id="subCat-แล็บ" class="sub-cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3.5 py-1.5 rounded-xl whitespace-nowrap">💉 แล็บ</button>
+                    <button onclick="setSubCategory('กิจกรรม')" id="subCat-กิจกรรม" class="sub-cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3.5 py-1.5 rounded-xl whitespace-nowrap">🎖️ กิจกรรมรุ่น</button>
                 </div>
             </div>
 
-            <div id="taskList" class="space-y-2.5"></div>
+            <div id="taskList" class="space-y-3"></div>
 
             <!-- ส่วนล่าง: แท็บข้อมูลในรุ่น -->
             <div class="pt-4 border-t border-slate-800">
-                <h3 class="text-xs font-semibold text-slate-400 mb-2.5 flex items-center gap-1.5">
+                <h3 class="text-sm font-semibold text-slate-400 mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-layer-group text-emerald-400"></i> สารสนเทศ & เวรประจำวัน รุ่น 63
                 </h3>
-                <div class="grid grid-cols-4 gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-[9px]">
-                    <button onclick="switchTab('daily')" id="tab-daily" class="tab-btn bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 font-medium py-2 rounded-lg text-center">👔 ชุด/เวรประจำวัน</button>
-                    <button onclick="switchTab('senior1')" id="tab-senior1" class="tab-btn text-slate-400 py-2 rounded-lg text-center">👑 พี่ปกครอง</button>
-                    <button onclick="switchTab('senior2')" id="tab-senior2" class="tab-btn text-slate-400 py-2 rounded-lg text-center">⚡ พี่ทำการแทน</button>
-                    <button onclick="switchTab('mess')" id="tab-mess" class="tab-btn text-slate-400 py-2 rounded-lg text-center">🍱 โรงเลี้ยง</button>
+                <div class="grid grid-cols-4 gap-1.5 bg-slate-900 p-1.5 rounded-xl border border-slate-800 text-xs">
+                    <button onclick="switchTab('daily')" id="tab-daily" class="tab-btn bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 font-medium py-2.5 rounded-lg text-center">👔 ชุด/เวร</button>
+                    <button onclick="switchTab('senior1')" id="tab-senior1" class="tab-btn text-slate-400 py-2.5 rounded-lg text-center">👑 นปค. (ปี 4)</button>
+                    <button onclick="switchTab('senior2')" id="tab-senior2" class="tab-btn text-slate-400 py-2.5 rounded-lg text-center">⚡ ทกท. (ปี 3)</button>
+                    <button onclick="switchTab('mess')" id="tab-mess" class="tab-btn text-slate-400 py-2.5 rounded-lg text-center">🍱 โรงเลี้ยง</button>
                 </div>
             </div>
 
             <!-- Panel 1: ชุดประจำวัน & เวรประจำสัปดาห์ -->
-            <div id="panel-daily" class="tab-panel bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
+            <div id="panel-daily" class="tab-panel bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 text-sm">
                 
-                <!-- แถบเครื่องมือแก้ไขเฉพาะหัวหน้า/รองหัวหน้าตอน -->
-                <div id="adminDutyControl" class="hidden bg-amber-950/40 border border-amber-500/30 p-2.5 rounded-xl space-y-2">
-                    <div class="flex justify-between items-center text-[10px] text-amber-400 font-bold">
+                <div id="adminDutyControl" class="hidden bg-amber-950/40 border border-amber-500/30 p-3 rounded-xl space-y-2.5">
+                    <div class="flex justify-between items-center text-xs text-amber-400 font-bold">
                         <span>👑 โหมดจัดการสำหรับหัวหน้า/รองหัวหน้าตอน</span>
-                        <button onclick="saveDutyConfig()" class="bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold px-2 py-0.5 rounded transition">บันทึกการแก้ไข</button>
+                        <button onclick="saveDutyConfig()" class="bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold px-3 py-1 rounded-lg transition text-xs">บันทึกการแก้ไข</button>
                     </div>
-                    <div class="space-y-1 text-[11px]">
-                        <input type="text" id="editDress" placeholder="แก้ไขเครื่องแบบประจำวัน..." class="w-full bg-slate-950 border border-slate-800 rounded px-2 py-1 text-slate-200">
-                        <div class="grid grid-cols-2 gap-1.5">
-                            <input type="text" id="editDutyLead" placeholder="เวรคุมแถว (เช่น 01-10)" class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-slate-200">
-                            <input type="text" id="editDutyDish" placeholder="เวรล้างจาน (เช่น 31-40)" class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-slate-200">
+                    <div class="space-y-2 text-xs">
+                        <div>
+                            <label class="block text-amber-300/80 mb-1">เลือกเครื่องแบบประจำวัน:</label>
+                            <select id="editDressSelect" onchange="handleDressSelectChange()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-slate-200 focus:outline-none focus:border-amber-500 text-xs">
+                                <option value="ชุดปกติคอพับแขนยาว">👔 ชุดปกติคอพับแขนยาว</option>
+                                <option value="ชุดปกติคอพับแขนสั้น">👔 ชุดปกติคอพับแขนสั้น</option>
+                                <option value="ชุดฝึกทหาร">🎖️ ชุดฝึกทหาร</option>
+                                <option value="ชุดพยาบาลพิธีการ">🩺 ชุดพยาบาลพิธีการ</option>
+                                <option value="ชุดพละ">👕 ชุดพละ</option>
+                                <option value="ชุดลำลอง">👟 ชุดลำลอง</option>
+                                <option value="CUSTOM">✏️ ระบุชุดเองเพิ่มเติม...</option>
+                            </select>
+                        </div>
+                        
+                        <div id="customDressContainer" class="hidden">
+                            <input type="text" id="editDressCustom" placeholder="กรอกรายละเอียดชุด..." class="w-full bg-slate-950 border border-amber-500/50 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 pt-0.5">
+                            <input type="text" id="editDutyLead" placeholder="เวรคุมแถว (เช่น 01-10)" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs">
+                            <input type="text" id="editDutyDish" placeholder="เวรล้างจาน (เช่น 31-40)" class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-slate-200 text-xs">
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-500/20">
-                    <span class="text-[10px] font-bold text-emerald-400 block mb-0.5">👔 เครื่องแบบประจำวัน</span>
-                    <p id="displayDress" class="text-slate-200 font-medium">ชุดฝึกทหารบก (รองเท้าขัดเงา เน็ตผมดำเรียบร้อย)</p>
+                <div class="bg-emerald-950/40 p-3 rounded-xl border border-emerald-500/20 relative">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-emerald-400">👔 เครื่องแบบประจำวัน</span>
+                        <span id="dutyUpdatedAt" class="text-[10px] text-slate-400 font-mono">อัปเดตล่าสุด: -</span>
+                    </div>
+                    <p id="displayDress" class="text-slate-100 font-semibold text-base">กำลังโหลด...</p>
                 </div>
-                <div class="space-y-2">
-                    <span class="text-[11px] font-semibold text-slate-300 block">📌 ผลัดเวรรักษาการณ์ & เวรประจำวัน (ประจำสัปดาห์):</span>
-                    <div class="grid grid-cols-2 gap-2 text-[11px]">
-                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                            <span class="text-[10px] text-amber-400 font-bold block">🎖️ เวรคุมแถว</span>
+                <div class="space-y-2.5">
+                    <span class="text-xs font-semibold text-slate-300 block">📌 ผลัดเวรรักษาการณ์ & เวรประจำวัน (ประจำสัปดาห์):</span>
+                    <div class="grid grid-cols-2 gap-2.5 text-xs">
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <span class="text-xs text-amber-400 font-bold block mb-1">🎖️ เวรคุมแถว</span>
                             <span id="displayDutyLead" class="text-slate-200 font-medium">รอหัวหน้าตอนอัปเดต</span>
                         </div>
-                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                            <span class="text-[10px] text-teal-400 font-bold block">🛡️ เวรรักษาการณ์</span>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <span class="text-xs text-teal-400 font-bold block mb-1">🛡️ เวรรักษาการณ์</span>
                             <span class="text-slate-200">ตามตารางคำสั่งเวร</span>
                         </div>
-                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                            <span class="text-[10px] text-blue-400 font-bold block">🧹 เวรห้องเรียน</span>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <span class="text-xs text-blue-400 font-bold block mb-1">🧹 เวรห้องเรียน</span>
                             <span class="text-emerald-400 font-bold">เลขที่ 61 - 70</span>
                         </div>
-                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                            <span class="text-[10px] font-bold text-rose-400 block">🍽️ เวรล้างจาน</span>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <span class="text-xs font-bold text-rose-400 block mb-1">🍽️ เวรล้างจาน</span>
                             <span id="displayDutyDish" class="text-slate-200 font-medium">รอหัวหน้าตอนอัปเดต</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Panel 2: พี่นักเรียนปกครอง -->
-            <div id="panel-senior1" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <span class="font-semibold text-amber-400">👑 ผลัดพี่นักเรียนปกครองประจำวัน</span>
-                    <span class="text-[10px] text-amber-300 bg-amber-950 px-2 py-0.5 rounded-full border border-amber-500/20">นรพ. ชั้นปีที่ 3</span>
+            <!-- Panel 2: นปค. (ปี 4) -->
+            <div id="panel-senior1" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 text-sm">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+                    <span class="font-semibold text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-crown"></i> ตารางเวร นปค. (นักเรียนปกครอง)
+                    </span>
+                    <span class="text-xs text-amber-300 bg-amber-950 px-2.5 py-0.5 rounded-full border border-amber-500/20">นรพ. ชั้นปีที่ 4</span>
                 </div>
-                <div class="space-y-2">
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                        <span class="text-[10px] text-slate-400 block">หัวหน้านักเรียนปกครองประจำวัน:</span>
-                        <div class="font-semibold text-slate-100 text-sm mt-0.5">นรพ. (ผลัดที่ 2)</div>
-                    </div>
+                
+                <div class="bg-slate-950 p-8 rounded-xl border border-slate-800 text-center space-y-2.5">
+                    <div class="text-3xl">⏳</div>
+                    <p class="text-slate-300 text-sm font-medium">ยังไม่มีข้อมูลผลัดเวร นปค.</p>
+                    <p class="text-xs text-slate-500">อยู่ในช่วงรออัปเดตข้อมูลตารางคำสั่งเวรจากชั้นปีที่ 4</p>
                 </div>
             </div>
 
-            <!-- Panel 3: พี่ทำการแทนนักเรียนปกครอง -->
-            <div id="panel-senior2" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <span class="font-semibold text-emerald-400">⚡ พี่ทำการแทนนักเรียนปกครอง</span>
-                    <span class="text-[10px] text-emerald-300 bg-emerald-950 px-2 py-0.5 rounded-full border border-emerald-500/20">นรพ. ชั้นปีที่ 2</span>
+            <!-- Panel 3: ทกท. (ปี 3) -->
+            <div id="panel-senior2" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3.5 text-sm">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+                    <span class="font-semibold text-emerald-400 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt"></i> ตารางการฝึก ทกท. (8 - 22 พ.ย.)
+                    </span>
+                    <span class="text-xs text-emerald-300 bg-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-500/20">นรพ. ชั้นปีที่ 3</span>
                 </div>
-                <div class="space-y-2">
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                        <span class="text-[10px] text-slate-400 block">พี่ทำการแทนประจำวัน (ชุดเตรียมฝึก):</span>
-                        <div class="font-semibold text-slate-100 text-sm mt-0.5">นรพ. (ผลัดที่ 1)</div>
+
+                <div id="todayTktCard" class="bg-gradient-to-r from-emerald-950/80 to-slate-950 p-3.5 rounded-xl border border-emerald-500/30 space-y-1">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-emerald-400 font-bold uppercase tracking-wider">⚡ ผลัดฝึกประจำวันนี้</span>
+                        <span id="tktDateLabel" class="text-slate-400 font-mono"></span>
                     </div>
+                    <div id="tktStatusDisplay" class="text-base font-bold text-slate-100">กำลังโหลด...</div>
+                </div>
+
+                <div class="space-y-2 pt-1">
+                    <span class="text-xs font-semibold text-slate-400 block">ปฏิทินตารางการฝึก ทกท. (1 ผลัด/วัน):</span>
+                    <div id="tktCalendarList" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1"></div>
                 </div>
             </div>
 
             <!-- Panel 4: เมนูโรงประกอบเลี้ยง -->
-            <div id="panel-mess" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5 text-xs">
-                <div class="flex justify-between items-center">
-                    <span class="font-semibold text-slate-200">เมนูอาหารโรงประกอบเลี้ยงประจำสัปดาห์</span>
-                    <span class="text-[10px] text-amber-400 bg-amber-950 px-2 py-0.5 rounded-full border border-amber-500/20">Mess Hall</span>
+            <div id="panel-mess" class="tab-panel hidden bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 text-sm">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2.5">
+                    <span class="font-semibold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-utensils text-amber-400"></i> เมนูอาหารโรงประกอบเลี้ยง
+                    </span>
+                    <span class="text-xs text-amber-400 bg-amber-950 px-2.5 py-0.5 rounded-full border border-amber-500/20">Mess Hall</span>
                 </div>
-                <div class="space-y-2">
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                        <span class="text-[10px] font-bold text-amber-400 block mb-0.5">🌅 มื้อเช้า (06:30 น.)</span>
-                        <p class="text-slate-300">ต้มเลือดหมูใบตำลึง + ข้าวสวย + ไข่ต้ม</p>
-                    </div>
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                        <span class="text-[10px] font-bold text-emerald-400 block mb-0.5">☀️ มื้อกลางวัน (12:00 น.)</span>
-                        <p class="text-slate-300">ผัดกะเพราไก่ไข่ดาว + แกงจืดเต้าหู้หมูสับ</p>
-                    </div>
-                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                        <span class="text-[10px] font-bold text-teal-400 block mb-0.5">🌙 มื้อเย็น (18:00 น.)</span>
-                        <p class="text-slate-300">มัสมั่นไก่ + ผัดผักรวมมิตร</p>
-                    </div>
+                
+                <div class="bg-slate-950 p-8 rounded-xl border border-slate-800 text-center space-y-2.5">
+                    <div class="text-3xl">🍱</div>
+                    <p class="text-slate-300 text-sm font-medium">ยังไม่มีข้อมูลเมนูอาหารโรงเลี้ยง</p>
+                    <p class="text-xs text-slate-500">อยู่ในช่วงรอประกาศรายการอาหารประจำสัปดาห์จากส่วนกลาง</p>
                 </div>
             </div>
 
@@ -248,49 +288,97 @@
 
     <!-- MODAL ADD TASK -->
     <div id="addModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-5 space-y-4 shadow-2xl">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="font-bold text-sm text-slate-100">➕ เพิ่มงาน / เดดไลน์ใหม่ (ส่วนกลาง)</h3>
-                <button onclick="closeModal()" class="text-slate-500 text-base"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="font-bold text-base text-slate-100">➕ เพิ่มงาน / เดดไลน์ใหม่ (ส่วนกลาง)</h3>
+                <button onclick="closeModal()" class="text-slate-500 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form id="taskForm" onsubmit="saveTask(event)" class="space-y-3 text-xs">
+            <form id="taskForm" onsubmit="saveTask(event)" class="space-y-3.5 text-xs">
                 <div>
-                    <label class="block text-slate-400 mb-1">ชื่อวิชา</label>
-                    <input type="text" id="inputSubject" required placeholder="เช่น Anatomy, การพยาบาลพื้นฐาน" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
+                    <label class="block text-slate-300 mb-1 font-medium text-xs">ชื่อวิชา</label>
+                    <input type="text" id="inputSubject" required placeholder="เช่น Anatomy, การพยาบาลพื้นฐาน, กิจกรรมรุ่น" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
-                    <label class="block text-slate-400 mb-1">หัวข้องาน / เรื่องที่ต้องทำ</label>
-                    <input type="text" id="inputTitle" required placeholder="เช่น สอบเก็บคะแนน, ส่งรายงานแล็บ" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
+                    <label class="block text-slate-300 mb-1 font-medium text-xs">หัวข้องาน / เรื่องที่ต้องทำ</label>
+                    <input type="text" id="inputTitle" required placeholder="เช่น สอบเก็บคะแนน, เข้าค่ายฝึกทหารบก" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
                 </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-slate-400 mb-1">ประเภทงาน</label>
-                        <select id="inputType" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
-                            <option value="การบ้าน">📝 การบ้าน</option>
-                            <option value="สอบ">🚨 สอบ</option>
-                            <option value="แล็บ">💉 แล็บ</option>
-                            <option value="กิจกรรม">🎖️ กิจกรรมรุ่น</option>
-                        </select>
+                <div>
+                    <label class="block text-slate-300 mb-1 font-medium text-xs">ประเภทงาน</label>
+                    <select id="inputType" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                        <option value="การบ้าน">📝 การบ้าน</option>
+                        <option value="สอบ">🚨 สอบ</option>
+                        <option value="แล็บ">💉 แล็บ</option>
+                        <option value="กิจกรรม">🎖️ กิจกรรมรุ่น</option>
+                    </select>
+                </div>
+
+                <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-3">
+                    <span class="text-xs font-semibold text-emerald-400 block">📅 วันที่เริ่มต้น / กำหนดส่ง</span>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-slate-400 mb-1 text-[11px]">วันที่ <span class="text-rose-400">*</span></label>
+                            <input type="date" id="inputStartDate" required class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-400 mb-1 text-[11px]">เวลา (ถ้าไม่มีเว้นว่าง)</label>
+                            <input type="time" id="inputStartTime" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-slate-400 mb-1">กำหนดส่ง (วัน-เวลา)</label>
-                        <input type="datetime-local" id="inputDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-2 text-slate-200 focus:outline-none focus:border-emerald-500">
+
+                    <div class="pt-1">
+                        <label class="flex items-center gap-2 cursor-pointer text-xs text-amber-300">
+                            <input type="checkbox" id="hasEndDateCheckbox" onchange="toggleEndDateInput()" class="rounded border-slate-800 text-emerald-600 focus:ring-0">
+                            <span>มีกำหนดส่ง/สิ้นสุดกิจกรรมคนละวัน (ช่วงวันที่)</span>
+                        </label>
+                    </div>
+
+                    <div id="endDateContainer" class="hidden grid grid-cols-2 gap-2 pt-2 border-t border-slate-800/80">
+                        <div>
+                            <label class="block text-amber-400 mb-1 text-[11px]">ถึงวันที่</label>
+                            <input type="date" id="inputEndDate" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-amber-400 mb-1 text-[11px]">เวลาสิ้นสุด (ถ้ามี)</label>
+                            <input type="time" id="inputEndTime" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-2 text-slate-200 text-xs focus:outline-none focus:border-emerald-500">
+                        </div>
                     </div>
                 </div>
+
                 <div>
-                    <label class="block text-slate-400 mb-1">รายละเอียดเพิ่มเติม</label>
-                    <textarea id="inputDetail" rows="2" placeholder="รายละเอียดหรือคำสั่งอาจารย์..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-emerald-500"></textarea>
+                    <label class="block text-slate-300 mb-1 font-medium text-xs">รายละเอียดเพิ่มเติม</label>
+                    <textarea id="inputDetail" rows="2" placeholder="รายละเอียดหรือคำสั่งอาจารย์..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-200 text-xs focus:outline-none focus:border-emerald-500"></textarea>
                 </div>
-                <div class="flex gap-2 pt-2">
-                    <button type="button" onclick="closeModal()" class="w-1/2 bg-slate-800 text-slate-300 py-2 rounded-xl font-medium">ยกเลิก</button>
-                    <button type="submit" class="w-1/2 bg-emerald-600 text-white py-2 rounded-xl font-medium">บันทึกงาน</button>
+                <div class="flex gap-2.5 pt-2">
+                    <button type="button" onclick="closeModal()" class="w-1/2 bg-slate-800 text-slate-300 py-2.5 rounded-xl font-medium text-xs">ยกเลิก</button>
+                    <button type="submit" class="w-1/2 bg-emerald-600 text-white py-2.5 rounded-xl font-medium text-xs">บันทึกงาน</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <script>
-        // กำหนดเลขประจำตัวสำหรับสิทธิ์ระดับหัวหน้า/รองหัวหน้าตอน
+    <!-- 🔥 FIREBASE SDK (MODULAR V9+) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { 
+            getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 🔥 ชุดรหัสกุญแจ Firebase ของคุณ
+        const firebaseConfig = {
+            apiKey: "AIzaSyDqoxXyQvNcFUlc_xXsEeR0S4zxu13rTBY",
+            authDomain: "rtanc63.firebaseapp.com",
+            projectId: "rtanc63",
+            storageBucket: "rtanc63.firebasestorage.app",
+            messagingSenderId: "99567094694",
+            appId: "1:99567094694:web:5a652242809c7355ff9d67",
+            measurementId: "G-G481WMJENR"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // CADET DIRECTORY & LEADERS
         const LEAD_CADETS = ["63069", "63004", "63026"];
 
         const CADET_DIRECTORY = {
@@ -376,20 +464,126 @@
             "63080": { name: "ไอลดา พันธาสุ", nick: "มี่", room: "602", gender: "♀️" }
         };
 
-        let currentCadetId = sessionStorage.getItem('rtanc_session_id') || '';
-        let tasks = JSON.parse(localStorage.getItem('rtanc_shared_tasks')) || [
-            { id: 1, subject: 'Anatomy & Physiology', title: 'สอบเก็บคะแนน ระบบกระดูกและกล้ามเนื้อ', type: 'สอบ', dueDate: '2026-11-10T09:00', detail: 'สอบห้องเรียนรวม 3 เตรียมดินสอ 2B' },
-            { id: 2, subject: 'การพยาบาลพื้นฐาน', title: 'ส่งรายงานสรุปแล็บ Vital Signs', type: 'แล็บ', dueDate: '2026-11-12T23:59', detail: 'ส่งเป็นไฟล์ PDF ทาง Google Classroom' },
-            { id: 3, subject: 'วิชาทหาร', title: 'ตรวจเครื่องแบบและระเบียบแถวประจำสัปดาห์', type: 'กิจกรรม', dueDate: '2026-11-13T07:00', detail: 'แต่งกายชุดฝึก รองเท้าขัดเงา เน็ตผมเป๊ะ' }
+        const TKT_SCHEDULE = [
+            { day: 8,  dateStr: 'อาทิตย์ 8 พ.ย.',  shift: 1, isOff: false },
+            { day: 9,  dateStr: 'จันทร์ 9 พ.ย.',   shift: 2, isOff: false },
+            { day: 10, dateStr: 'อังคาร 10 พ.ย.',  shift: 3, isOff: false },
+            { day: 11, dateStr: 'พุธ 11 พ.ย.',     shift: 1, isOff: false },
+            { day: 12, dateStr: 'พฤหัสฯ 12 พ.ย.',  shift: 2, isOff: false },
+            { day: 13, dateStr: 'ศุกร์ 13 พ.ย.',    shift: 3, isOff: false },
+            { day: 14, dateStr: 'เสาร์ 14 พ.ย.',    shift: 0, isOff: true },
+            { day: 15, dateStr: 'อาทิตย์ 15 พ.ย.',  shift: 3, isOff: false },
+            { day: 16, dateStr: 'จันทร์ 16 พ.ย.',   shift: 1, isOff: false },
+            { day: 17, dateStr: 'อังคาร 17 พ.ย.',  shift: 2, isOff: false },
+            { day: 18, dateStr: 'พุธ 18 พ.ย.',     shift: 3, isOff: false },
+            { day: 19, dateStr: 'พฤหัสฯ 19 พ.ย.',  shift: 1, isOff: false },
+            { day: 20, dateStr: 'ศุกร์ 20 พ.ย.',    shift: 2, isOff: false },
+            { day: 21, dateStr: 'เสาร์ 21 พ.ย.',    shift: 0, isOff: true },
+            { day: 22, dateStr: 'อาทิตย์ 22 พ.ย.',  shift: 2, isOff: false }
         ];
 
-        let dutyConfig = JSON.parse(localStorage.getItem('rtanc_duty_config')) || {
-            dress: 'ชุดฝึกทหารบก (รองเท้าขัดเงา เน็ตผมดำเรียบร้อย)',
+        let currentCadetId = sessionStorage.getItem('rtanc_session_id') || '';
+        let tasks = [];
+        let dutyConfig = {
+            dress: 'ชุดฝึกทหาร',
             lead: 'รอหัวหน้าตอนอัปเดต',
-            dish: 'รอหัวหน้าตอนอัปเดต'
+            dish: 'รอหัวหน้าตอนอัปเดต',
+            updatedAt: '-'
         };
 
-        let currentCat = 'all';
+        let mainTabState = 'pending'; 
+        let subCategoryState = 'all';  
+
+        // Realtime Listener จาก Firebase
+        function initFirebaseListeners() {
+            // 1. Listen Duty Config
+            onSnapshot(doc(db, "settings", "dutyConfig"), (snapshot) => {
+                if (snapshot.exists()) {
+                    dutyConfig = snapshot.data();
+                    renderDutyDisplays();
+                }
+            });
+
+            // 2. Listen Shared Tasks
+            onSnapshot(collection(db, "tasks"), (snapshot) => {
+                tasks = [];
+                snapshot.forEach((doc) => {
+                    tasks.push({ id: doc.id, ...doc.data() });
+                });
+                tasks.sort((a, b) => b.createdAtTimestamp - a.createdAtTimestamp);
+                renderTasks();
+            });
+        }
+
+        function getThaiNowFormatted() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
+            const timeStr = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+            return `${dateStr} ${timeStr} น.`;
+        }
+
+        function startRealtimeClock() {
+            function updateClock() {
+                const now = new Date();
+                const days = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
+                const dayName = days[now.getDay()];
+                const dateStr = now.toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' });
+                const timeStr = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                document.getElementById('realtimeDate').innerHTML = `<i class="fa-regular fa-calendar-days text-emerald-400 mr-1"></i>วัน${dayName}ที่ ${dateStr}`;
+                document.getElementById('realtimeClock').innerText = `${timeStr} น.`;
+            }
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        function renderTktSchedule() {
+            const today = new Date();
+            const currentDay = today.getDate();
+            const currentMonth = today.getMonth() + 1;
+
+            const labelEl = document.getElementById('tktDateLabel');
+            const statusEl = document.getElementById('tktStatusDisplay');
+            const calendarList = document.getElementById('tktCalendarList');
+
+            labelEl.innerText = today.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
+
+            const todayItem = TKT_SCHEDULE.find(item => item.day === currentDay && currentMonth === 11);
+            if(todayItem) {
+                if(todayItem.isOff) {
+                    statusEl.innerHTML = `<span class="text-rose-400">🛑 วันเสาร์ - งดการฝึก ทกท.</span>`;
+                } else {
+                    statusEl.innerHTML = `<span class="text-emerald-400">⚡ การฝึก ทกท. ผลัดที่ ${todayItem.shift}</span>`;
+                }
+            } else {
+                statusEl.innerHTML = `<span class="text-slate-400">อยู่นอกช่วงตารางการฝึก (8 - 22 พ.ย.)</span>`;
+            }
+
+            calendarList.innerHTML = TKT_SCHEDULE.map(item => {
+                const isToday = (item.day === currentDay && currentMonth === 11);
+                
+                if(item.isOff) {
+                    return `
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 flex justify-between items-center opacity-60">
+                            <span class="text-slate-400 font-medium text-xs">${item.dateStr}</span>
+                            <span class="text-xs bg-rose-950/60 text-rose-300 px-2.5 py-0.5 rounded border border-rose-500/20 font-bold">🛑 งดการฝึก</span>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="bg-slate-950 p-3 rounded-xl border ${isToday ? 'border-emerald-500/60 bg-emerald-950/20' : 'border-slate-800'} flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            ${isToday ? '<span class="text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.5 rounded">วันนี้</span>' : ''}
+                            <span class="text-slate-200 font-medium text-xs">${item.dateStr}</span>
+                        </div>
+                        <span class="text-xs bg-emerald-950 text-emerald-400 px-3 py-0.5 rounded-full border border-emerald-500/30 font-bold">
+                            ⚡ ผลัดที่ ${item.shift}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
 
         function checkAuth() {
             if(currentCadetId && CADET_DIRECTORY[currentCadetId]) {
@@ -412,16 +606,16 @@
                 document.getElementById('userNameDisplay').innerText = `${prefix} ${user.name} (${user.nick}) ${user.gender}`;
                 document.getElementById('userRoomDisplay').innerText = user.room;
                 
-                // ตรวจสอบว่าผู้ใช้เป็นหัวหน้า/รองหัวหน้าตอนหรือไม่
                 if(LEAD_CADETS.includes(currentCadetId)) {
                     document.getElementById('adminDutyControl').classList.remove('hidden');
                 } else {
                     document.getElementById('adminDutyControl').classList.add('hidden');
                 }
 
-                renderDutyDisplays();
-                renderTasks();
+                initFirebaseListeners();
+                renderTktSchedule();
                 startCountdown();
+                startRealtimeClock();
             } else {
                 document.getElementById('leftOutScreen').classList.add('hidden');
                 document.getElementById('loginScreen').classList.remove('hidden');
@@ -431,138 +625,269 @@
             }
         }
 
-        function renderDutyDisplays() {
-            document.getElementById('displayDress').innerText = dutyConfig.dress;
-            document.getElementById('displayDutyLead').innerText = dutyConfig.lead;
-            document.getElementById('displayDutyDish').innerText = dutyConfig.dish;
+        window.handleLogin = function(e) {
+            e.preventDefault();
+            const id = document.getElementById('loginIdInput').value.trim();
+            if(CADET_DIRECTORY[id]) {
+                currentCadetId = id;
+                sessionStorage.setItem('rtanc_session_id', id);
+                checkAuth();
+            } else {
+                showError('ไม่พบเลขประจำตัวนี้ในระบบ (กรอก 63001 - 63080)');
+            }
+        };
 
-            document.getElementById('editDress').value = dutyConfig.dress;
-            document.getElementById('editDutyLead').value = dutyConfig.lead;
-            document.getElementById('editDutyDish').value = dutyConfig.dish;
-        }
-
-        function saveDutyConfig() {
-            const dress = document.getElementById('editDress').value.trim();
-            const lead = document.getElementById('editDutyLead').value.trim();
-            const dish = document.getElementById('editDutyDish').value.trim();
-
-            if(dress) dutyConfig.dress = dress;
-            if(lead) dutyConfig.lead = lead;
-            if(dish) dutyConfig.dish = dish;
-
-            localStorage.setItem('rtanc_duty_config', JSON.stringify(dutyConfig));
-            renderDutyDisplays();
-            alert('บันทึกการแก้ไขข้อมูลเวรและเครื่องแบบเรียบร้อยแล้วครับ! 👑');
-        }
-
-        function backToLoginFromLeftOut() {
-            sessionStorage.removeItem('rtanc_session_id');
+        window.handleLogout = function() {
             currentCadetId = '';
+            sessionStorage.removeItem('rtanc_session_id');
             checkAuth();
-        }
+        };
+
+        window.backToLoginFromLeftOut = function() { window.handleLogout(); };
 
         function showError(msg) {
-            const errEl = document.getElementById('loginErrorMsg');
+            const err = document.getElementById('loginErrorMsg');
             if(msg) {
-                errEl.innerText = msg;
-                errEl.classList.remove('hidden');
+                err.innerText = msg;
+                err.classList.remove('hidden');
             } else {
-                errEl.innerText = '';
-                errEl.classList.add('hidden');
+                err.classList.add('hidden');
             }
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            showError('');
-            let inputId = document.getElementById('loginIdInput').value.trim();
+        function renderDutyDisplays() {
+            document.getElementById('displayDress').innerText = dutyConfig.dress || 'ไม่ได้ระบุ';
+            document.getElementById('displayDutyLead').innerText = dutyConfig.lead || 'รอหัวหน้าตอนอัปเดต';
+            document.getElementById('displayDutyDish').innerText = dutyConfig.dish || 'รอหัวหน้าตอนอัปเดต';
+            document.getElementById('dutyUpdatedAt').innerText = 'อัปเดตล่าสุด: ' + (dutyConfig.updatedAt || 'เพิ่งอัปเดต');
             
-            if(inputId === '6341') inputId = '63041';
+            const selectEl = document.getElementById('editDressSelect');
+            const customContainer = document.getElementById('customDressContainer');
+            const customInput = document.getElementById('editDressCustom');
 
-            if(!CADET_DIRECTORY[inputId]) {
-                showError('❌ ไม่พบเลขประจำตัวนี้ในระบบ RTANC 63 (กรุณากรอก 63001 - 63080)');
-                return;
-            }
-
-            currentCadetId = inputId;
-            sessionStorage.setItem('rtanc_session_id', inputId);
-            checkAuth();
-        }
-
-        function handleLogout() {
-            sessionStorage.removeItem('rtanc_session_id');
-            currentCadetId = '';
-            checkAuth();
-        }
-
-        function isTaskDone(taskId) {
-            const userDoneList = JSON.parse(localStorage.getItem(`rtanc_done_${currentCadetId}`)) || [];
-            return userDoneList.includes(taskId);
-        }
-
-        function toggleDone(taskId) {
-            let userDoneList = JSON.parse(localStorage.getItem(`rtanc_done_${currentCadetId}`)) || [];
-            if(userDoneList.includes(taskId)) {
-                userDoneList = userDoneList.filter(id => id !== taskId);
+            let matchedOption = Array.from(selectEl.options).find(opt => opt.value === dutyConfig.dress);
+            if(matchedOption) {
+                selectEl.value = dutyConfig.dress;
+                customContainer.classList.add('hidden');
             } else {
-                userDoneList.push(taskId);
+                selectEl.value = 'CUSTOM';
+                customContainer.classList.remove('hidden');
+                customInput.value = dutyConfig.dress || '';
             }
-            localStorage.setItem(`rtanc_done_${currentCadetId}`, JSON.stringify(userDoneList));
-            renderTasks();
+
+            document.getElementById('editDutyLead').value = dutyConfig.lead || '';
+            document.getElementById('editDutyDish').value = dutyConfig.dish || '';
         }
+
+        window.handleDressSelectChange = function() {
+            const val = document.getElementById('editDressSelect').value;
+            const customContainer = document.getElementById('customDressContainer');
+            if(val === 'CUSTOM') {
+                customContainer.classList.remove('hidden');
+            } else {
+                customContainer.classList.add('hidden');
+            }
+        };
+
+        window.saveDutyConfig = async function() {
+            const selectVal = document.getElementById('editDressSelect').value;
+            let finalDress = selectVal;
+            if(selectVal === 'CUSTOM') {
+                finalDress = document.getElementById('editDressCustom').value.trim() || 'ไม่ได้ระบุ';
+            }
+
+            const newConfig = {
+                dress: finalDress,
+                lead: document.getElementById('editDutyLead').value.trim() || dutyConfig.lead,
+                dish: document.getElementById('editDutyDish').value.trim() || dutyConfig.dish,
+                updatedAt: getThaiNowFormatted()
+            };
+
+            await setDoc(doc(db, "settings", "dutyConfig"), newConfig);
+            alert(`อัปเดตข้อมูลเวรไปยังระบบ Firebase เรียบร้อยแล้ว!\n(ทุกคนจะเห็นข้อมูลอัปเดตทันที)`);
+        };
+
+        window.switchTab = function(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('bg-emerald-950/80', 'text-emerald-400', 'border', 'border-emerald-500/30', 'font-medium');
+                b.classList.add('text-slate-400');
+            });
+            document.getElementById('panel-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('bg-emerald-950/80', 'text-emerald-400', 'border', 'border-emerald-500/30', 'font-medium');
+            activeBtn.classList.remove('text-slate-400');
+        };
+
+        window.switchMainTaskTab = function(tab) {
+            mainTabState = tab;
+            const btnPending = document.getElementById('mainTab-pending');
+            const btnCompleted = document.getElementById('mainTab-completed');
+            const subContainer = document.getElementById('subCategoryContainer');
+
+            if(tab === 'pending') {
+                btnPending.className = "py-2.5 rounded-xl transition flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-md";
+                btnCompleted.className = "py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200";
+                subContainer.classList.remove('hidden');
+            } else {
+                btnCompleted.className = "py-2.5 rounded-xl transition flex items-center justify-center gap-2 bg-emerald-600 text-white shadow-md";
+                btnPending.className = "py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200";
+                subContainer.classList.add('hidden');
+            }
+            renderTasks();
+        };
+
+        window.setSubCategory = function(cat) {
+            subCategoryState = cat;
+            document.querySelectorAll('.sub-cat-btn').forEach(b => {
+                b.className = "sub-cat-btn bg-slate-900 text-slate-400 border border-slate-800 px-3.5 py-1.5 rounded-xl whitespace-nowrap";
+            });
+            const activeBtn = document.getElementById('subCat-' + cat);
+            if(activeBtn) {
+                activeBtn.className = "sub-cat-btn bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 px-3.5 py-1.5 rounded-xl whitespace-nowrap font-medium";
+            }
+            renderTasks();
+        };
 
         function renderTasks() {
             const container = document.getElementById('taskList');
             const search = document.getElementById('searchInput').value.toLowerCase();
             
-            const filtered = tasks.filter(t => {
-                const matchCat = currentCat === 'all' || t.type === currentCat;
-                const matchSearch = t.subject.toLowerCase().includes(search) || t.title.toLowerCase().includes(search);
-                return matchCat && matchSearch;
+            const pendingTasksCount = tasks.filter(t => !t.completed).length;
+            const completedTasksCount = tasks.filter(t => t.completed).length;
+            document.getElementById('pendingCountBadge').innerText = pendingTasksCount;
+            document.getElementById('completedCountBadge').innerText = completedTasksCount;
+
+            let filtered = tasks.filter(t => {
+                const isPendingTab = mainTabState === 'pending';
+                const matchStatus = isPendingTab ? !t.completed : t.completed;
+                const matchSubCat = (isPendingTab && subCategoryState !== 'all') ? t.type === subCategoryState : true;
+                const matchSearch = (t.subject || '').toLowerCase().includes(search) || (t.title || '').toLowerCase().includes(search);
+                
+                return matchStatus && matchSubCat && matchSearch;
             });
 
             if(filtered.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-slate-500 text-xs">ไม่พบรายการงาน ชิลล์ได้! 🎉</div>`;
+                const emptyMsg = mainTabState === 'completed' ? 'ยังไม่มีรายการงานที่ทำเสร็จแล้ว' : 'ไม่มีรายการงานค้างที่ตรงตามเงื่อนไข';
+                container.innerHTML = `<div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center text-xs text-slate-500">${emptyMsg}</div>`;
                 return;
             }
 
-            container.innerHTML = filtered.map(t => {
-                const done = isTaskDone(t.id);
-                return `
-                <div class="bg-slate-900 border ${done ? 'border-slate-800 opacity-60' : 'border-slate-800'} rounded-2xl p-3.5 space-y-2 transition">
+            container.innerHTML = filtered.map(t => `
+                <div class="bg-slate-900 border ${t.completed ? 'border-emerald-900/40 opacity-75' : 'border-slate-800'} rounded-2xl p-4 space-y-2.5 relative shadow-md">
                     <div class="flex justify-between items-start">
-                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${t.type === 'สอบ' ? 'bg-rose-950 text-rose-400 border border-rose-500/20' : t.type === 'แล็บ' ? 'bg-teal-950 text-teal-400 border border-teal-500/20' : 'bg-emerald-950 text-emerald-400 border border-emerald-500/20'}">
-                            ${t.type}
-                        </span>
-                        <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-slate-400">
-                            <input type="checkbox" onchange="toggleDone(${t.id})" ${done ? 'checked' : ''} class="accent-emerald-500 rounded">
-                            <span>${done ? 'ส่งแล้ว' : 'ยังไม่ส่ง'}</span>
-                        </label>
+                        <div class="flex items-center gap-2.5">
+                            <button onclick="toggleTaskStatus('${t.id}')" title="${t.completed ? 'ย้ายกลับไปงานค้าง' : 'มาร์กทำเสร็จแล้ว'}" class="w-6 h-6 rounded-lg flex items-center justify-center border ${t.completed ? 'bg-emerald-600 border-emerald-500 text-white' : 'border-slate-700 hover:border-emerald-500 text-transparent'} text-xs transition">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border ${getTypeStyle(t.type)}">${t.type}</span>
+                            <span class="text-sm font-bold ${t.completed ? 'line-through text-slate-400' : 'text-slate-100'}">${t.subject}</span>
+                        </div>
+                        <button onclick="deleteTask('${t.id}')" class="text-slate-600 hover:text-rose-400 text-xs px-1"><i class="fa-solid fa-trash"></i></button>
                     </div>
-                    <div>
-                        <span class="text-[10px] text-emerald-400 font-medium block">${t.subject}</span>
-                        <h3 class="font-semibold text-xs text-slate-100 ${done ? 'line-through' : ''}">${t.title}</h3>
-                        ${t.detail ? `<p class="text-[11px] text-slate-400 mt-1">${t.detail}</p>` : ''}
-                    </div>
-                    <div class="pt-2 border-t border-slate-800/80 flex justify-between items-center text-[10px] text-slate-500">
-                        <span>📅 กำหนดส่ง: ${new Date(t.dueDate).toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' })} น.</span>
+                    <h4 class="text-sm ${t.completed ? 'line-through text-slate-400' : 'text-slate-200'} font-medium pl-8">${t.title}</h4>
+                    ${t.detail ? `<p class="text-xs text-slate-300 bg-slate-950 p-2.5 rounded-xl border border-slate-800/80 ml-8 leading-relaxed">${t.detail}</p>` : ''}
+                    <div class="flex justify-between items-center text-xs text-slate-400 border-t border-slate-800/60 pt-2 ml-8">
+                        <span><i class="fa-regular fa-clock text-emerald-400 mr-1.5"></i>${formatTaskDateDisplay(t)}</span>
+                        <span class="text-[10px] text-slate-500">เพิ่มเมื่อ: ${t.createdAt || 'ไม่ระบุ'}</span>
                     </div>
                 </div>
-            `}).join('');
+            `).join('');
         }
+
+        function formatTaskDateDisplay(t) {
+            if(!t.startDate) return 'ไม่ระบุวันส่ง';
+
+            const startObj = new Date(t.startDate);
+            const startStr = startObj.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' });
+            const startTimeStr = t.startTime ? ` ${t.startTime} น.` : '';
+
+            if(t.endDate) {
+                const endObj = new Date(t.endDate);
+                const endStr = endObj.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' });
+                const endTimeStr = t.endTime ? ` ${t.endTime} น.` : '';
+                
+                return `${startStr}${startTimeStr} - ${endStr}${endTimeStr}`;
+            }
+
+            return `${startStr}${startTimeStr || ' (ตลอดทั้งวัน)'}`;
+        }
+
+        window.toggleTaskStatus = async function(id) {
+            const target = tasks.find(t => t.id === id);
+            if(target) {
+                await setDoc(doc(db, "tasks", id), { ...target, completed: !target.completed });
+            }
+        };
+
+        function getTypeStyle(type) {
+            switch(type) {
+                case 'การบ้าน': return 'bg-blue-950 text-blue-300 border-blue-500/30';
+                case 'สอบ': return 'bg-rose-950 text-rose-300 border-rose-500/30';
+                case 'แล็บ': return 'bg-teal-950 text-teal-300 border-teal-500/30';
+                default: return 'bg-amber-950 text-amber-300 border-amber-500/30';
+            }
+        }
+
+        window.filterTasks = function() { renderTasks(); };
+
+        window.openModal = function() { document.getElementById('addModal').classList.remove('hidden'); };
+        window.closeModal = function() { document.getElementById('addModal').classList.add('hidden'); };
+
+        window.toggleEndDateInput = function() {
+            const isChecked = document.getElementById('hasEndDateCheckbox').checked;
+            const container = document.getElementById('endDateContainer');
+            if(isChecked) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+                document.getElementById('inputEndDate').value = '';
+                document.getElementById('inputEndTime').value = '';
+            }
+        };
+
+        window.saveTask = async function(e) {
+            e.preventDefault();
+            const taskId = "task_" + Date.now();
+            const newTask = {
+                subject: document.getElementById('inputSubject').value.trim(),
+                title: document.getElementById('inputTitle').value.trim(),
+                type: document.getElementById('inputType').value,
+                startDate: document.getElementById('inputStartDate').value,
+                startTime: document.getElementById('inputStartTime').value,
+                endDate: document.getElementById('hasEndDateCheckbox').checked ? document.getElementById('inputEndDate').value : '',
+                endTime: document.getElementById('hasEndDateCheckbox').checked ? document.getElementById('inputEndTime').value : '',
+                detail: document.getElementById('inputDetail').value.trim(),
+                createdAt: getThaiNowFormatted(),
+                createdAtTimestamp: Date.now(),
+                completed: false
+            };
+
+            await setDoc(doc(db, "tasks", taskId), newTask);
+            closeModal();
+            document.getElementById('taskForm').reset();
+            document.getElementById('hasEndDateCheckbox').checked = false;
+            toggleEndDateInput();
+        };
+
+        window.deleteTask = async function(id) {
+            if(confirm('ต้องการลบงานนี้ออกจากระบบกลางใช่หรือไม่?')) {
+                await deleteDoc(doc(db, "tasks", id));
+            }
+        };
 
         function startCountdown() {
             function update() {
                 const now = new Date();
-                let target = new Date();
-                target.setDate(now.getDate() + ((5 + 7 - now.getDay()) % 7));
-                target.setHours(17, 0, 0, 0);
+                let nextFriday = new Date();
+                nextFriday.setDate(now.getDate() + ((5 + 7 - now.getDay()) % 7));
+                nextFriday.setHours(17, 0, 0, 0);
 
-                if (now > target) {
-                    target.setDate(target.getDate() + 7);
+                if (now > nextFriday) {
+                    nextFriday.setDate(nextFriday.getDate() + 7);
                 }
 
-                const diff = target - now;
+                const diff = nextFriday - now;
                 const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
                 const m = Math.floor((diff / 1000 / 60) % 60);
@@ -575,48 +900,6 @@
             }
             update();
             setInterval(update, 1000);
-        }
-
-        function setCategory(cat) {
-            currentCat = cat;
-            document.querySelectorAll('.cat-btn').forEach(b => {
-                b.classList.remove('bg-emerald-600', 'text-white');
-                b.classList.add('bg-slate-900', 'text-slate-400');
-            });
-            event.target.classList.remove('bg-slate-900', 'text-slate-400');
-            event.target.classList.add('bg-emerald-600', 'text-white');
-            renderTasks();
-        }
-
-        function filterTasks() { renderTasks(); }
-        function openModal() { document.getElementById('addModal').classList.remove('hidden'); }
-        function closeModal() { document.getElementById('addModal').classList.add('hidden'); }
-
-        function saveTask(e) {
-            e.preventDefault();
-            const newTask = {
-                id: Date.now(),
-                subject: document.getElementById('inputSubject').value,
-                title: document.getElementById('inputTitle').value,
-                type: document.getElementById('inputType').value,
-                dueDate: document.getElementById('inputDate').value,
-                detail: document.getElementById('inputDetail').value
-            };
-            tasks.unshift(newTask);
-            localStorage.setItem('rtanc_shared_tasks', JSON.stringify(tasks));
-            renderTasks();
-            closeModal();
-            document.getElementById('taskForm').reset();
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('bg-emerald-950/80', 'text-emerald-400', 'border', 'border-emerald-500/30', 'font-medium');
-                b.classList.add('text-slate-400');
-            });
-            document.getElementById(`panel-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabName}`).classList.add('bg-emerald-950/80', 'text-emerald-400', 'border', 'border-emerald-500/30', 'font-medium');
         }
 
         checkAuth();
